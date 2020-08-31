@@ -20,8 +20,7 @@ jobs:
         name: "report"
         head_sha: ${{ github.sha }}
         output: | # The | is significant!
-          title: Invalidation report
-          summary: 0 (0 via deps) vs. 0 on master
+          title: 0 (0 via deps) vs. 0 on master
           text: This is some text written in **markdown** format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
