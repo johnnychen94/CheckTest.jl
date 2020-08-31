@@ -8,11 +8,23 @@ jobs:
   evaluate:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: LouisBrunner/checks-action@v0.1.0
-      if: always()
+    # Create check run
+    - uses: octokit/request-action@v2.x
+      id: create_check_run
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        name: report
-        conclusion: 'success'
-        output: '{"title": "report", "summary": "0 (0 via deps) vs. 0 on master", "text": "This is some random text"}'
+        route: POST /repos/:repository/check-runs
+        repository: ${{ github.repository }}
+        mediaType: | # The | is significant!
+          previews: 
+            - antiope
+        name: "Test check run"
+        head_sha: ${{ github.sha }}
+        output: | # The | is significant!
+          title: report
+          summary: 0 (0 via deps) vs. 0 on master
+          text: This is some text written in **markdown** format
+          images:
+            - alt: Test image
+              image_url: https://octodex.github.com/images/jetpacktocat.png
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
