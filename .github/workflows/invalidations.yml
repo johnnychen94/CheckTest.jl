@@ -13,6 +13,6 @@ jobs:
       if: always()
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        name: Test XYZ
+        name: report
         conclusion: 'success'
         output: '{"title": "report", "summary": "0 (0 via deps) vs. 0 on master"}'
