@@ -10,19 +10,22 @@ jobs:
     steps:
       # Create check run
       - uses: octokit/request-action@v2.x
-        name: create checks flag
         id: create_check_run
+        name: create checks flag
         with:
           route: POST /repos/:repository/check-runs
           repository: ${{ github.repository }}
           mediaType: | # The | is significant!
             previews: 
               - antiope
-          name: report
+          name: "Test check run"
           head_sha: ${{ github.sha }}
           output: | # The | is significant!
-            title: report
-            text: This is some text written in **markdown** format
+            title: Test check run title
+            summary: A summary of the test check run
+            images:
+              - alt: Test image
+                image_url: https://octodex.github.com/images/jetpacktocat.png
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
