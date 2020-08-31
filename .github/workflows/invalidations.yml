@@ -15,4 +15,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Test XYZ
         conclusion: 'success'
-        output: '{"summary": "${{ steps.test.outputs.summary }}"}'
+        output: '{"title": "report", "summary": "0 (0 via deps) vs. 0 on master"}'
