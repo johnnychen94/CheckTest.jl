@@ -21,7 +21,7 @@ jobs:
           name: "Test check run"
           head_sha: ${{ github.sha }}
           output: | # The | is significant!
-            title: Test check run title
+            title: check invalidation diffs
             summary: A summary of the test check run
             images:
               - alt: Test image
@@ -33,8 +33,8 @@ jobs:
         with:
           version: 'nightly'
 
+      # Update check run to completed, succesful status
       - uses: octokit/request-action@v2.x
-        name: report invalidation
         id: update_check_run
         with:
           route: PATCH /repos/:repository/check-runs/:check_run_id
@@ -45,8 +45,8 @@ jobs:
           check_run_id: ${{ fromJson(steps.create_check_run.outputs.data).id }}
           conclusion: "success"
           status: "completed"
-          output: | # The | is significant!
+          output: |
             title: "0 (0 via deps) vs. 0 on master"
-            text: This is some text written in **markdown** format
+            summary: 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
