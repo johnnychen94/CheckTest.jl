@@ -10,22 +10,32 @@ jobs:
     steps:
     # Create check run
     - uses: octokit/request-action@v2.x
+      id: create_check_run
       with:
         route: POST /repos/:repository/check-runs
         repository: ${{ github.repository }}
         mediaType: | # The | is significant!
           previews: 
             - antiope
-        name: "Test check run"
+        name: "report"
         head_sha: ${{ github.sha }}
         output: | # The | is significant!
-          title: report
+          title: Invalidation report
           summary: 0 (0 via deps) vs. 0 on master
           text: This is some text written in **markdown** format
-          images:
-            - alt: Test image
-              image_url: https://octodex.github.com/images/jetpacktocat.png
-          conclusion: "success"
-          status: "completed"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - uses: octokit/request-action@v2.x
+      id: update_check_run
+      with:
+        route: PATCH /repos/:repository/check-runs/:check_run_id
+        repository: ${{ github.repository }}
+        mediaType: | # The | is significant!
+          previews: 
+            - antiope
+        check_run_id: ${{ fromJson(steps.create_check_run.outputs.data).id }}
+        conclusion: "success"
+        status: "completed"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
