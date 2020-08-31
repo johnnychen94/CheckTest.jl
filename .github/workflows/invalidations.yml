@@ -10,6 +10,7 @@ jobs:
     steps:
     # Create check run
     - uses: octokit/request-action@v2.x
+      name: create checks flag
       id: create_check_run
       with:
         route: POST /repos/:repository/check-runs
@@ -17,18 +18,20 @@ jobs:
         mediaType: | # The | is significant!
           previews: 
             - antiope
-        name: "report"
+        name: report
         head_sha: ${{ github.sha }}
         output: | # The | is significant!
           title: report
           text: This is some text written in **markdown** format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
     - uses: julia-actions/setup-julia@v1
       with:
         version: 'nightly'
         
     - uses: octokit/request-action@v2.x
+      name: report invalidation
       id: update_check_run
       with:
         route: PATCH /repos/:repository/check-runs/:check_run_id
