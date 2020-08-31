@@ -15,4 +15,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         name: report
         conclusion: 'success'
-        output: '{"title": "report", "summary": "0 (0 via deps) vs. 0 on master"}'
+        output: '{"title": "report", "summary": "0 (0 via deps) vs. 0 on master", "text": "This is some random text"}'
