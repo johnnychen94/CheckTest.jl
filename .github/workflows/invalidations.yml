@@ -20,10 +20,13 @@ jobs:
         name: "report"
         head_sha: ${{ github.sha }}
         output: | # The | is significant!
-          title: 0 (0 via deps) vs. 0 on master
+          title: report
           text: This is some text written in **markdown** format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: julia-actions/setup-julia@v1
+      with:
+        version: 'nightly'
         
     - uses: octokit/request-action@v2.x
       id: update_check_run
@@ -36,5 +39,8 @@ jobs:
         check_run_id: ${{ fromJson(steps.create_check_run.outputs.data).id }}
         conclusion: "success"
         status: "completed"
+        output: | # The | is significant!
+          title: "0 (0 via deps) vs. 0 on master"
+          text: This is some text written in **markdown** format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
