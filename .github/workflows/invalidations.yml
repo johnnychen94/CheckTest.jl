@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # Create check run
-    - uses: octokit/request-action@v2
-      id: create_check_run
+    - uses: octokit/request-action@v2.x
       with:
         route: POST /repos/:repository/check-runs
         repository: ${{ github.repository }}
