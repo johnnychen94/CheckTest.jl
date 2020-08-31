@@ -18,7 +18,7 @@ jobs:
           mediaType: | # The | is significant!
             previews: 
               - antiope
-          name: "Test check run"
+          name: "report"
           head_sha: ${{ github.sha }}
           output: | # The | is significant!
             title: check invalidation diffs
@@ -43,6 +43,7 @@ jobs:
             previews: 
               - antiope
           check_run_id: ${{ fromJson(steps.create_check_run.outputs.data).id }}
+          name: "report"
           conclusion: "success"
           status: "completed"
           output: |
