@@ -47,6 +47,6 @@ jobs:
           status: "completed"
           output: |
             title: "0 (0 via deps) vs. 0 on master"
-            summary: 
+            summary: "invalidation check succeed"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
