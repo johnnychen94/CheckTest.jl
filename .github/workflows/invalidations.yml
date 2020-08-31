@@ -19,13 +19,8 @@ jobs:
             previews: 
               - antiope
           name: "report"
+          status: "in_progress"
           head_sha: ${{ github.sha }}
-          output: | # The | is significant!
-            title: check invalidation diffs
-            summary: A summary of the test check run
-            images:
-              - alt: Test image
-                image_url: https://octodex.github.com/images/jetpacktocat.png
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -49,5 +44,6 @@ jobs:
           output: |
             title: "0 (0 via deps) vs. 0 on master"
             summary: "invalidation check succeed"
+            text: "More detailed informations"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
